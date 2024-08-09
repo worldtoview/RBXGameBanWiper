@@ -22,8 +22,7 @@ int main() {
 
     char* UserProfile = nullptr;
     size_t len = 0;
-    _dupenv_s(&UserProfile, &len, "USERPROFILE");
-    if (!UserProfile) {
+    if (_dupenv_s(&UserProfile, &len, "USERPROFILE") != 0 || !UserProfile) {
         ConsoleLog("could not find USERPROFILE environment variable");
         return 1;
     }
@@ -32,18 +31,21 @@ int main() {
     free(UserProfile);
 
     if (!FileSystem::exists(Path)) {
-        ConsoleLog("could not find RobloxCookies.dat");
+        ConsoleLog("could not find " + Path.string());
+        std::cin.get();
         return 1;
     }
 
     std::error_code ErrorCode;
     FileSystem::remove(Path, ErrorCode);
     if (ErrorCode) {
-        ConsoleLog("failed to remove RobloxCookies.dat");
+        ConsoleLog("failed to remove " + Path.string() + ", error code: " + std::to_string(ErrorCode.value()));
+        std::cin.get();
         return 1;
     }
 
-    ConsoleLog("successfully removed RobloxCookies.dat");
+    ConsoleLog("successfully removed " + Path.string());
+    std::cin.get();
 
     return 0;
 }

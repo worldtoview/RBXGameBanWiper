@@ -24,7 +24,8 @@ int main() {
     size_t len = 0;
     if (_dupenv_s(&UserProfile, &len, "USERPROFILE") != 0 || !UserProfile) {
         ConsoleLog("could not find USERPROFILE environment variable");
-        return 1;
+        std::cin.get();
+        return 0;
     }
 
     FileSystem::path Path = FileSystem::path(UserProfile) / "AppData" / "Local" / "Roblox" / "LocalStorage" / "RobloxCookies.dat";
@@ -33,7 +34,7 @@ int main() {
     if (!FileSystem::exists(Path)) {
         ConsoleLog("could not find " + Path.string());
         std::cin.get();
-        return 1;
+        return 0;
     }
 
     std::error_code ErrorCode;
@@ -41,7 +42,7 @@ int main() {
     if (ErrorCode) {
         ConsoleLog("failed to remove " + Path.string() + ", error code: " + std::to_string(ErrorCode.value()));
         std::cin.get();
-        return 1;
+        return 0;
     }
 
     ConsoleLog("successfully removed " + Path.string());

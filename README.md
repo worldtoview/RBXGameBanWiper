@@ -1,6 +1,6 @@
 # RBXGameBanWiper
 
-A tool that helps ensure your alternate Roblox accounts remain unaffected if one of your primary accounts gets banned from a game.
+A tool that ensures your alternate Roblox accounts remain unaffected if one of your accounts gets banned from a game.
 
 ## Getting Started
 
